@@ -16,7 +16,7 @@ body {
 .wrapper {
   height: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 h1, h2 {

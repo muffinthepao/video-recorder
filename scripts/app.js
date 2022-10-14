@@ -1,11 +1,13 @@
 // set up basic variables for app
-
 const record = document.querySelector('.record');
 const stop = document.querySelector('.stop');
+const combine = document.querySelector('.combine')
+const combinedVideo = document.querySelector('.combined-video')
 const soundClips = document.querySelector('.video-clips');
 const canvas = document.querySelector('.visualizer');
 const mainSection = document.querySelector('.main-controls');
 const mirror = document.getElementById("mirror")
+let clips = []
 
 // disable stop button while not recording
 
@@ -59,53 +61,47 @@ if (navigator.mediaDevices.getUserMedia) {
     mediaRecorder.onstop = function(e) {
       console.log("data available after MediaRecorder.stop() called.");
 
-      const clipName = prompt('Enter a name for your video clip?','My unnamed clip');
 
       const clipContainer = document.createElement('article');
-      const clipLabel = document.createElement('p');
       const video = document.createElement('video');
-      const deleteButton = document.createElement('button');
+      const aTag = document.createElement('a')
 
       clipContainer.classList.add('clip');
       video.setAttribute('controls', '');
-      deleteButton.textContent = 'Delete';
-      deleteButton.className = 'delete';
 
-      if(clipName === null) {
-        clipLabel.textContent = 'My unnamed clip';
-      } else {
-        clipLabel.textContent = clipName;
-      }
 
       clipContainer.appendChild(video);
-      clipContainer.appendChild(clipLabel);
-      clipContainer.appendChild(deleteButton);
       soundClips.appendChild(clipContainer);
 
       video.controls = true;
-      const blob = new Blob(chunks, { 'type' : 'video/mp4; codecs=avc1.424028, mp4a.40.2' });
+      const blob = new Blob(chunks, { 'type' : 'video/mp4' });
       chunks = [];
       const videoURL = window.URL.createObjectURL(blob);
       video.src = videoURL;
-      console.log("recorder stopped");
+      console.log("recorder stopped");    
 
-      deleteButton.onclick = function(e) {
-        e.target.closest(".clip").remove();
-      }
-
-      clipLabel.onclick = function() {
-        const existingName = clipLabel.textContent;
-        const newClipName = prompt('Enter a new name for your sound clip?');
-        if(newClipName === null) {
-          clipLabel.textContent = existingName;
-        } else {
-          clipLabel.textContent = newClipName;
-        }
-      }
     }
 
     mediaRecorder.ondataavailable = function(e) {
       chunks.push(e.data);
+      clips.push(e.data)
+    }
+
+    combine.onclick = function() {
+        console.log("combine")
+
+        if (clips.length === 0) {
+            alert('Nothing to combine')
+        } else {
+            ConcatenateBlobs(clips, 'video/mp4', function(resultingBlob) {
+                const video = document.createElement('video');
+                video.setAttribute('controls', '');
+                video.src = URL.createObjectURL(resultingBlob);
+                combinedVideo.appendChild(video);
+            });
+
+
+        }
     }
   }
 

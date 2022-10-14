@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Web dictaphone</title>
-    <link href="styles/app.css" rel="stylesheet" type="text/css">
-  </head>
-  <body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Video Recorder</title>
+        <link href="styles/app.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <section>
+                <h1>Instructions</h1>
+                <h2>1) Allow camera and mic use</h2>
+                <h2>2) Wait for mirror to start</h2>
+                <h2>3) when you are ready, click on "Record"</h2>
+                <h2>4) To stop recording, cllick on "Stop"</h2>
+                <h2>5) View list of recorded videos below</h2>
+                <h2>6) Delete/Download where you see fit</h2>
+                <button class="combine">Combine</button>
+            </section>
+            <section>
+                <h1>combined video</h1>
+                <section class="combined-video"></section>
+            </section>
+            <section class="main-controls">
+                <video id="mirror" muted></video>
+                <div id="buttons">
+                    <button class="record">Record</button>
+                    <button class="stop">Stop</button>
+                </div>
+            </section>
 
-    <div class="wrapper">
-      <section>
-        <h1>Instructions</h1>
-        <h2>1) Allow camera and mic use</h2>
-        <h2>2) Wait for mirror to start</h2>
-        <h2>3) when you are ready, click on "Record"</h2>
-        <h2>4) To stop recording, cllick on "Stop"</h2>
-        <h2>5) View list of recorded videos below</h2>
-        <h2>6) Delete/Download where you see fit</h2>
-      </section>
-      <section class="main-controls">
-        <video id="mirror" muted></video>
-        <div id="buttons">
-          <button class="record">Record</button>
-          <button class="stop">Stop</button>
+            <section class="video-clips"></section>
         </div>
-      </section>
 
-      <section class="video-clips">
-
-
-      </section>
-
-    </div>
-
-    <script src="scripts/app.js"></script>
-
-  </body>
+        <script src="scripts/app.js"></script>
+		<script src="./node_modules/concatenateblobs/ConcatenateBlobs.js"></script>
+		<!-- <script src="https://cdn.webrtc-experiment.com/RecordRTC.js" autoplay> </script> -->
+		<!-- <script src="https://cdn.webrtc-experiment.com/ConcatenateBlobs.js" autoplay> </script> -->
+    </body>
 </html>
